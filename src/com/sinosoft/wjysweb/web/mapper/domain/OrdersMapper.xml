@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sinosoft.wjysweb.web.dao.domain.OrdersMapper" >
+  <resultMap id="BaseResultMap" type="com.sinosoft.wjysweb.web.bean.po.Orders" >
+    <id column="OrdersId" property="ordersid" jdbcType="VARCHAR" />
+    <result column="OrdersName" property="ordersname" jdbcType="VARCHAR" />
+    <result column="OrdersDescription" property="ordersdescription" jdbcType="VARCHAR" />
+    <result column="OrdersPrice" property="ordersprice" jdbcType="DECIMAL" />
+    <result column="TradeName" property="tradename" jdbcType="VARCHAR" />
+    <result column="TradeNum" property="tradenum" jdbcType="INTEGER" />
+    <result column="PaymentStatus" property="paymentstatus" jdbcType="VARCHAR" />
+    <result column="OrderConsigneeId" property="orderconsigneeid" jdbcType="VARCHAR" />
+    <result column="OrderConsigneeName" property="orderconsigneename" jdbcType="VARCHAR" />
+    <result column="OrderConsigneeAddress" property="orderconsigneeaddress" jdbcType="VARCHAR" />
+    <result column="OrderEvaluation" property="orderevaluation" jdbcType="VARCHAR" />
+    <result column="ValidStatus" property="validstatus" jdbcType="VARCHAR" />
+    <result column="CreatTime" property="creattime" jdbcType="TIMESTAMP" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    OrdersId, OrdersName, OrdersDescription, OrdersPrice, TradeName, TradeNum, PaymentStatus, 
+    OrderConsigneeId, OrderConsigneeName, OrderConsigneeAddress, OrderEvaluation, ValidStatus, 
+    CreatTime, UpdateTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sinosoft.wjysweb.web.bean.po.OrdersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where OrdersId = #{ordersid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from orders
+    where OrdersId = #{ordersid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sinosoft.wjysweb.web.bean.po.OrdersExample" >
+    delete from orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sinosoft.wjysweb.web.bean.po.Orders" >
+    insert into orders (OrdersId, OrdersName, OrdersDescription, 
+      OrdersPrice, TradeName, TradeNum, 
+      PaymentStatus, OrderConsigneeId, OrderConsigneeName, 
+      OrderConsigneeAddress, OrderEvaluation, 
+      ValidStatus, CreatTime, UpdateTime
+      )
+    values (#{ordersid,jdbcType=VARCHAR}, #{ordersname,jdbcType=VARCHAR}, #{ordersdescription,jdbcType=VARCHAR}, 
+      #{ordersprice,jdbcType=DECIMAL}, #{tradename,jdbcType=VARCHAR}, #{tradenum,jdbcType=INTEGER}, 
+      #{paymentstatus,jdbcType=VARCHAR}, #{orderconsigneeid,jdbcType=VARCHAR}, #{orderconsigneename,jdbcType=VARCHAR}, 
+      #{orderconsigneeaddress,jdbcType=VARCHAR}, #{orderevaluation,jdbcType=VARCHAR}, 
+      #{validstatus,jdbcType=VARCHAR}, #{creattime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sinosoft.wjysweb.web.bean.po.Orders" >
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ordersid != null" >
+        OrdersId,
+      </if>
+      <if test="ordersname != null" >
+        OrdersName,
+      </if>
+      <if test="ordersdescription != null" >
+        OrdersDescription,
+      </if>
+      <if test="ordersprice != null" >
+        OrdersPrice,
+      </if>
+      <if test="tradename != null" >
+        TradeName,
+      </if>
+      <if test="tradenum != null" >
+        TradeNum,
+      </if>
+      <if test="paymentstatus != null" >
+        PaymentStatus,
+      </if>
+      <if test="orderconsigneeid != null" >
+        OrderConsigneeId,
+      </if>
+      <if test="orderconsigneename != null" >
+        OrderConsigneeName,
+      </if>
+      <if test="orderconsigneeaddress != null" >
+        OrderConsigneeAddress,
+      </if>
+      <if test="orderevaluation != null" >
+        OrderEvaluation,
+      </if>
+      <if test="validstatus != null" >
+        ValidStatus,
+      </if>
+      <if test="creattime != null" >
+        CreatTime,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ordersid != null" >
+        #{ordersid,jdbcType=VARCHAR},
+      </if>
+      <if test="ordersname != null" >
+        #{ordersname,jdbcType=VARCHAR},
+      </if>
+      <if test="ordersdescription != null" >
+        #{ordersdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="ordersprice != null" >
+        #{ordersprice,jdbcType=DECIMAL},
+      </if>
+      <if test="tradename != null" >
+        #{tradename,jdbcType=VARCHAR},
+      </if>
+      <if test="tradenum != null" >
+        #{tradenum,jdbcType=INTEGER},
+      </if>
+      <if test="paymentstatus != null" >
+        #{paymentstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderconsigneeid != null" >
+        #{orderconsigneeid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderconsigneename != null" >
+        #{orderconsigneename,jdbcType=VARCHAR},
+      </if>
+      <if test="orderconsigneeaddress != null" >
+        #{orderconsigneeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderevaluation != null" >
+        #{orderevaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="validstatus != null" >
+        #{validstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="creattime != null" >
+        #{creattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sinosoft.wjysweb.web.bean.po.OrdersExample" resultType="java.lang.Integer" >
+    select count(*) from orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update orders
+    <set >
+      <if test="record.ordersid != null" >
+        OrdersId = #{record.ordersid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordersname != null" >
+        OrdersName = #{record.ordersname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordersdescription != null" >
+        OrdersDescription = #{record.ordersdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordersprice != null" >
+        OrdersPrice = #{record.ordersprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tradename != null" >
+        TradeName = #{record.tradename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradenum != null" >
+        TradeNum = #{record.tradenum,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentstatus != null" >
+        PaymentStatus = #{record.paymentstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderconsigneeid != null" >
+        OrderConsigneeId = #{record.orderconsigneeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderconsigneename != null" >
+        OrderConsigneeName = #{record.orderconsigneename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderconsigneeaddress != null" >
+        OrderConsigneeAddress = #{record.orderconsigneeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderevaluation != null" >
+        OrderEvaluation = #{record.orderevaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.validstatus != null" >
+        ValidStatus = #{record.validstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creattime != null" >
+        CreatTime = #{record.creattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatetime != null" >
+        UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update orders
+    set OrdersId = #{record.ordersid,jdbcType=VARCHAR},
+      OrdersName = #{record.ordersname,jdbcType=VARCHAR},
+      OrdersDescription = #{record.ordersdescription,jdbcType=VARCHAR},
+      OrdersPrice = #{record.ordersprice,jdbcType=DECIMAL},
+      TradeName = #{record.tradename,jdbcType=VARCHAR},
+      TradeNum = #{record.tradenum,jdbcType=INTEGER},
+      PaymentStatus = #{record.paymentstatus,jdbcType=VARCHAR},
+      OrderConsigneeId = #{record.orderconsigneeid,jdbcType=VARCHAR},
+      OrderConsigneeName = #{record.orderconsigneename,jdbcType=VARCHAR},
+      OrderConsigneeAddress = #{record.orderconsigneeaddress,jdbcType=VARCHAR},
+      OrderEvaluation = #{record.orderevaluation,jdbcType=VARCHAR},
+      ValidStatus = #{record.validstatus,jdbcType=VARCHAR},
+      CreatTime = #{record.creattime,jdbcType=TIMESTAMP},
+      UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sinosoft.wjysweb.web.bean.po.Orders" >
+    update orders
+    <set >
+      <if test="ordersname != null" >
+        OrdersName = #{ordersname,jdbcType=VARCHAR},
+      </if>
+      <if test="ordersdescription != null" >
+        OrdersDescription = #{ordersdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="ordersprice != null" >
+        OrdersPrice = #{ordersprice,jdbcType=DECIMAL},
+      </if>
+      <if test="tradename != null" >
+        TradeName = #{tradename,jdbcType=VARCHAR},
+      </if>
+      <if test="tradenum != null" >
+        TradeNum = #{tradenum,jdbcType=INTEGER},
+      </if>
+      <if test="paymentstatus != null" >
+        PaymentStatus = #{paymentstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderconsigneeid != null" >
+        OrderConsigneeId = #{orderconsigneeid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderconsigneename != null" >
+        OrderConsigneeName = #{orderconsigneename,jdbcType=VARCHAR},
+      </if>
+      <if test="orderconsigneeaddress != null" >
+        OrderConsigneeAddress = #{orderconsigneeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderevaluation != null" >
+        OrderEvaluation = #{orderevaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="validstatus != null" >
+        ValidStatus = #{validstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="creattime != null" >
+        CreatTime = #{creattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where OrdersId = #{ordersid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sinosoft.wjysweb.web.bean.po.Orders" >
+    update orders
+    set OrdersName = #{ordersname,jdbcType=VARCHAR},
+      OrdersDescription = #{ordersdescription,jdbcType=VARCHAR},
+      OrdersPrice = #{ordersprice,jdbcType=DECIMAL},
+      TradeName = #{tradename,jdbcType=VARCHAR},
+      TradeNum = #{tradenum,jdbcType=INTEGER},
+      PaymentStatus = #{paymentstatus,jdbcType=VARCHAR},
+      OrderConsigneeId = #{orderconsigneeid,jdbcType=VARCHAR},
+      OrderConsigneeName = #{orderconsigneename,jdbcType=VARCHAR},
+      OrderConsigneeAddress = #{orderconsigneeaddress,jdbcType=VARCHAR},
+      OrderEvaluation = #{orderevaluation,jdbcType=VARCHAR},
+      ValidStatus = #{validstatus,jdbcType=VARCHAR},
+      CreatTime = #{creattime,jdbcType=TIMESTAMP},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where OrdersId = #{ordersid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo_eureka_client.dao.domain.SysconfigMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo_eureka_client.bean.po.Sysconfig" >
+    <id column="PARAMETERCODE" property="parametercode" jdbcType="VARCHAR" />
+    <id column="PARAMETERTYPE" property="parametertype" jdbcType="VARCHAR" />
+    <result column="PARAMETERVALUE" property="parametervalue" jdbcType="VARCHAR" />
+    <result column="PARAMETERDESC" property="parameterdesc" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="VALIDSTATUS" property="validstatus" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PARAMETERCODE, PARAMETERTYPE, PARAMETERVALUE, PARAMETERDESC, REMARK, VALIDSTATUS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demo_eureka_client.bean.po.SysconfigExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sysconfig
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.example.demo_eureka_client.bean.po.SysconfigKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from sysconfig
+    where PARAMETERCODE = #{parametercode,jdbcType=VARCHAR}
+      and PARAMETERTYPE = #{parametertype,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.example.demo_eureka_client.bean.po.SysconfigKey" >
+    delete from sysconfig
+    where PARAMETERCODE = #{parametercode,jdbcType=VARCHAR}
+      and PARAMETERTYPE = #{parametertype,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo_eureka_client.bean.po.SysconfigExample" >
+    delete from sysconfig
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo_eureka_client.bean.po.Sysconfig" >
+    insert into sysconfig (PARAMETERCODE, PARAMETERTYPE, PARAMETERVALUE, 
+      PARAMETERDESC, REMARK, VALIDSTATUS
+      )
+    values (#{parametercode,jdbcType=VARCHAR}, #{parametertype,jdbcType=VARCHAR}, #{parametervalue,jdbcType=VARCHAR}, 
+      #{parameterdesc,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{validstatus,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo_eureka_client.bean.po.Sysconfig" >
+    insert into sysconfig
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="parametercode != null" >
+        PARAMETERCODE,
+      </if>
+      <if test="parametertype != null" >
+        PARAMETERTYPE,
+      </if>
+      <if test="parametervalue != null" >
+        PARAMETERVALUE,
+      </if>
+      <if test="parameterdesc != null" >
+        PARAMETERDESC,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="validstatus != null" >
+        VALIDSTATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="parametercode != null" >
+        #{parametercode,jdbcType=VARCHAR},
+      </if>
+      <if test="parametertype != null" >
+        #{parametertype,jdbcType=VARCHAR},
+      </if>
+      <if test="parametervalue != null" >
+        #{parametervalue,jdbcType=VARCHAR},
+      </if>
+      <if test="parameterdesc != null" >
+        #{parameterdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="validstatus != null" >
+        #{validstatus,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo_eureka_client.bean.po.SysconfigExample" resultType="java.lang.Integer" >
+    select count(*) from sysconfig
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sysconfig
+    <set >
+      <if test="record.parametercode != null" >
+        PARAMETERCODE = #{record.parametercode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parametertype != null" >
+        PARAMETERTYPE = #{record.parametertype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parametervalue != null" >
+        PARAMETERVALUE = #{record.parametervalue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parameterdesc != null" >
+        PARAMETERDESC = #{record.parameterdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.validstatus != null" >
+        VALIDSTATUS = #{record.validstatus,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sysconfig
+    set PARAMETERCODE = #{record.parametercode,jdbcType=VARCHAR},
+      PARAMETERTYPE = #{record.parametertype,jdbcType=VARCHAR},
+      PARAMETERVALUE = #{record.parametervalue,jdbcType=VARCHAR},
+      PARAMETERDESC = #{record.parameterdesc,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      VALIDSTATUS = #{record.validstatus,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo_eureka_client.bean.po.Sysconfig" >
+    update sysconfig
+    <set >
+      <if test="parametervalue != null" >
+        PARAMETERVALUE = #{parametervalue,jdbcType=VARCHAR},
+      </if>
+      <if test="parameterdesc != null" >
+        PARAMETERDESC = #{parameterdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="validstatus != null" >
+        VALIDSTATUS = #{validstatus,jdbcType=CHAR},
+      </if>
+    </set>
+    where PARAMETERCODE = #{parametercode,jdbcType=VARCHAR}
+      and PARAMETERTYPE = #{parametertype,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo_eureka_client.bean.po.Sysconfig" >
+    update sysconfig
+    set PARAMETERVALUE = #{parametervalue,jdbcType=VARCHAR},
+      PARAMETERDESC = #{parameterdesc,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      VALIDSTATUS = #{validstatus,jdbcType=CHAR}
+    where PARAMETERCODE = #{parametercode,jdbcType=VARCHAR}
+      and PARAMETERTYPE = #{parametertype,jdbcType=VARCHAR}
+  </update>
+</mapper>
